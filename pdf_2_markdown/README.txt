@@ -10,6 +10,7 @@ pip install pymupdf4llm
 
 I have heard that pdfplumber can be better with images, so I want to use that also. Hence two programs. One for general purpose and other for llm purposes.
 conda create --name pdf_md
+pip install pdfplumber markdownify
 
 Running program
 The program can be runned in the terminal in format python pdf_2_markdown.py in_path out_dir
