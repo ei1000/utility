@@ -2,31 +2,44 @@ import tkinter as tk
 import customtkinter as ctk
 import os
 
+ctk.set_appearance_mode("Dark")
+ctk.set_default_color_theme("green")
 
-
-
+#The main application class
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("Script Runner")
-        self.geometry("800x600")
+        #Title to running program
+        self.title("Utilities")
+
+        #Set screen to be 70% of the users screen.
+        screen_width = int(self.winfo_screenwidth() *0.7)
+        screen_height = int(self.winfo_screenheight() *0.7)
+        self.geometry(f"{screen_width}x{screen_height}")
 
         # Container to hold all frames
         container = ctk.CTkFrame(self)
         container.pack(fill="both", expand=True)
 
-        self.frames = {}
+        self.frame_classes= [MainMenu, Pdf2Markdown, ScriptTemplate]
 
+        self.frames = {}
         # Initialize the frames and store them in a dictionary
-        for F in (MainMenu, Pdf2Markdown, ScriptTemplate):
+        for F in self.frame_classes:
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
+        #Center grid
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+        
         # Show the main menu initially
         self.show_frame(MainMenu)
 
+        
+    #Function to switch frame
     def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
@@ -36,19 +49,19 @@ class MainMenu(ctk.CTkFrame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         
+        #Text and buttons for 
         label = ctk.CTkLabel(self, text="Main Menu", font=('Helvetica', 20))
-        label.pack(pady=20)
+        label.pack(pady=20, anchor='center')
+
+        #Creating a button for every script
+        for F in controller.frame_classes[1:]:
+            button = ctk.CTkButton(self, text=f"{F.__name__}", 
+                                    command=lambda F=F: controller.show_frame(F))
+            button.pack(pady=10, anchor='center')
         
-        button1 = ctk.CTkButton(self, text="Run Script 1", 
-                                command=lambda: controller.show_frame(Pdf2Markdown))
-        button1.pack(pady=10)
-        
-        button2 = ctk.CTkButton(self, text="Run Script Template", 
-                                command=lambda: controller.show_frame(ScriptTemplate))
-        button2.pack(pady=10)
-        
+        #Quit button
         quit_button = ctk.CTkButton(self, text="Quit", command=controller.quit)
-        quit_button.pack(pady=10)
+        quit_button.pack(pady=10, anchor='center')
 
 # Script 1 Frame
 class Pdf2Markdown(ctk.CTkFrame):
