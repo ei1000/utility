@@ -23,7 +23,8 @@ def pdf_2_markdown(in_filepath, out_dir_path):
         for page in pdf.pages:
             text = page.extract_text(layout=True)
             if text:
-                markdown_text += md(text) + "\n\n"
+                cleaned_text = re.sub(r'\n\s*\n+', '\n\n', text)
+                markdown_text += md(cleaned_text) + "\n"
 
     # Save the markdown text to a .md file
     with open(out_dir_path + '/' + file_name + '.md', "w") as md_file:
