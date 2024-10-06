@@ -2,6 +2,7 @@ import tkinter as tk
 import customtkinter as ctk
 import os
 from pdf_2_markdown.pd2markdown_class import Pdf2Markdown
+from algorithms.classes import RotateList
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("green")
@@ -24,7 +25,7 @@ class App(ctk.CTk):
         container.pack(fill="both", expand=True)
 
         #Add the script classes here in list below and it will generate dictionaries
-        self.frame_classes= [MainMenu, Pdf2Markdown, ScriptTemplate]
+        self.frame_classes= [MainMenu, Pdf2Markdown, RotateList] + [ScriptTemplate]
         self.frame_classes= {F.__name__: F for F in self.frame_classes}
 
         self.frames = {}
@@ -77,9 +78,21 @@ class ScriptTemplate(ctk.CTkFrame):
         label = ctk.CTkLabel(self, text="Script Template", font=('Helvetica', 20))
         label.pack(pady=20)
         
+        #TODO logic goes here:
+
+
+        # Run script button
+        run_button = ctk.CTkButton(self, text="Run Script", command=self.execute_script)
+        run_button.pack(pady=10)
+
+        #Back button
         back_button = ctk.CTkButton(self, text="Back to Main Menu", 
                                     command=lambda: controller.show_frame('MainMenu'))
         back_button.pack(side='bottom', pady=20, fill='x')
+    
+    #Executing the script
+    def execute_script(self):
+        pass
 
 
 #Make the program run when called. Start the loop.
