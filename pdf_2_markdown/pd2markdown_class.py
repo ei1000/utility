@@ -35,6 +35,10 @@ class Pdf2Markdown(ctk.CTkFrame):
         run_button = ctk.CTkButton(self, text="Run Script 1", command=self.execute_script_1)
         run_button.pack(pady=10)
 
+        #Output label
+        self.output_label = ctk.CTkLabel(self, text='')
+        self.output_label.pack(pady=50)
+
         # Back to main menu button
         back_button = ctk.CTkButton(self, text="Back to Main Menu", command=lambda: controller.show_frame('MainMenu'))
         back_button.pack(side='bottom', pady=20, fill='x')
@@ -66,4 +70,4 @@ class Pdf2Markdown(ctk.CTkFrame):
         #Not decided if I want to keep using terminal here or just import the function instead.
         else:
             os.system(f"python pdf_2_markdown/pdf_2_markdown.py {file_path_1} {file_path_2}")
-            tk.messagebox.showinfo("Pdf converted to markdown", f"File can be found in: {file_path_2}")
+            self.output_label.configure(text=f"Pdf converted to markdown!\n\nFile can be found in: {file_path_2}", height=40, width=40)

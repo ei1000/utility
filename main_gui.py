@@ -65,7 +65,7 @@ class MainMenu(ctk.CTkFrame):
         
         #Quit button
         quit_button = ctk.CTkButton(self, text="Quit", command=controller.quit, fg_color='#C3423F', hover_color='#8E2E2C')
-        quit_button.place(relx=1, rely=0, anchor='ne', x=-10, y=10)
+        quit_button.place(relx=0.5, rely=1, anchor='s', y=-20)
 
 
 
